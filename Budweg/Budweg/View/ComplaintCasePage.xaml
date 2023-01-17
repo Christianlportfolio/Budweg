@@ -1,0 +1,119 @@
+﻿<Page x:Class="Budweg.View.ComplaintCasePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Budweg.View" xmlns:Viewmodel="clr-namespace:Budweg.Viewmodel"
+      mc:Ignorable="d" 
+      d:DesignHeight="718" d:DesignWidth="1250"
+      Title="ComplaintCasePage">
+
+    <Grid Background="LightGray">
+        <Grid x:Name="pageHeader" VerticalAlignment="Top" Height="30" Background="SlateGray">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150" />
+                <ColumnDefinition Width="150" />
+                <ColumnDefinition Width="150" />
+                <ColumnDefinition Width="150" />
+                <ColumnDefinition Width="150" />
+                <ColumnDefinition Width="150" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+
+            <Button x:Name="btnCreateComplaintCase" Content="Opret Sag" Click="btnCreateComplaintCase_Click"></Button>
+            <Button Content="Høj prioritet" Grid.Column="1"></Button>
+            <Button Content="Mellem prioritet" Grid.Column="2"></Button>
+            <Button Content="Lav prioritet" Grid.Column="3"></Button>
+            <Button Content="Nye sager" Grid.Column="4"></Button>
+            <Button Content="Lukkede sager" Grid.Column="5"></Button>
+        </Grid>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="30"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+
+            <ListBox ItemsSource="{Binding CasesViewModels, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedComplaintCase}" Background="#ededed" x:Name="lbComplaintCase" Grid.Column="1" Grid.Row="1" SelectionChanged="lbComplaintCase_SelectionChanged">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Ordrenummer:&#x09; &#x09; &#x09;" FontWeight="Bold" FontSize="12"/>
+                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=OrderNumber}" FontSize="12"/>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Firmanavn:" FontWeight="Bold" FontSize="12"/>
+                            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding SelectedCompany.CompanyName}" FontSize="12"/>
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Skadetype:" FontWeight="Bold" FontSize="12"/>
+                            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Path=DamageTypeId.DamageTypeDescription}" FontSize="12"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+
+            </ListBox>
+
+            <Grid Grid.Column="3" Grid.Row="1" Background="#ededed">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="150" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="30" />
+                </Grid.RowDefinitions>
+                <Label>Skadeårsag:</Label>
+                <TextBox x:Name="TbDamageType" Text="{Binding SelectedComplaintCase.DamageTypeId.DamageTypeDescription}" Grid.Column="1" Margin="5,5,5,5" />
+                <Label Grid.Row="1">Monteringsdato:</Label>
+                <TextBox x:Name="TbInstallationDate" Text="{Binding SelectedComplaintCase.InstallationDate}" Grid.Row="1" Grid.Column="1" Margin="5,5,5,5" />
+                <Label Grid.Row="2">Firmanavn:</Label>
+                <TextBox x:Name="TbCompanyName" Text="{Binding SelectedComplaintCase.SelectedCompany.CompanyName}" Grid.Row="2" Grid.Column="1" Margin="5,5,5,5"/>
+                <Label Grid.Row="3">Kontaktperson:</Label>
+                <TextBox x:Name="TbContactPerson" Text="{Binding SelectedComplaintCase.ContactPersonName}" Grid.Row="3" Grid.Column="1" Margin="5,5,5,5"/>
+                <Label Grid.Row="4">Prioritet:</Label>
+                <ComboBox x:Name="CbComplaintStatusId" Text="{Binding SelectedComplaintCase.ComplaintStatusId.ToString()}" Grid.Row="4" Grid.Column="1" Margin="5,5,5,5"></ComboBox>
+                <Label Grid.Row="5">Kommentar:</Label>
+                <TextBox x:Name="TbComment" Text="{Binding SelectedComplaintCase.Comment}" Grid.Row="5" Grid.Column="1" Margin="5,5,5,5"/>
+
+                <Button Grid.Row="7"  Margin="1,1,1,1">Opdater sag</Button>
+                <Button Grid.Row="7" Margin="5,1,133.4,1.4" Grid.Column="1">Slut sag</Button>
+                <Button Grid.Row="7" Margin="137.4,1,1.4,1" Grid.Column="1" Click="Button_Click">Slet sag</Button>
+
+
+
+
+            </Grid>
+
+
+
+
+
+        </Grid>
+
+
+    </Grid>
+</Page>
